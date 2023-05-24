@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: column;
     height: 30vh;
-    justify-content: center;
+    justify-content: left;
+    width: 100%;
   }
 </style>

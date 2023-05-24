@@ -59,13 +59,13 @@
         if (e.key == 'Backspace') {
             characters.update(n=> {
                 if (current - 1 < 0) {
-                    n[current] = {[Object.keys(charsVal[current])[0]]:'black'};
+                    n[current] = {[Object.keys(charsVal[current])[0]]:''};
                     return n;
                 }
-                if (Object.values(n[current-1])[0] == 'green') {
+                if (Object.values(n[current-1])[0] == '#2F2D2E') {
                     correct.update(n => n - 1)
                 }
-                n[current-1] = {[Object.keys(charsVal[current-1])[0]]:'black'};
+                n[current-1] = {[Object.keys(charsVal[current-1])[0]]:''};
                 currentChar.update(n => n - 1);
                 return n;
             })
@@ -82,10 +82,10 @@
             characters.update((n) => {
                 let copied = [...n];
                 if (Object.keys(charsVal[current])[0] == e.key) {
-                    n[current] = {[Object.keys(charsVal[current])[0]]:'green'};
+                    n[current] = {[Object.keys(charsVal[current])[0]]:'#2F2D2E'};
                     correct.update(n => n + 1);
                 } else {
-                    n[current] = {[Object.keys(charsVal[current])[0]]: 'red'};
+                    n[current] = {[Object.keys(charsVal[current])[0]]: '#D72483'};
                 }
                 return n;
             })
@@ -101,12 +101,12 @@
         let colorsText = [];
 
         for(let i=0; i < textSplit.length; i++) {
-            colorsText.push({[textSplit[i]]:'black'});
+            colorsText.push({[textSplit[i]]:''});
         }
 
         characters.set(colorsText)
 
-        document.querySelector('body').addEventListener('keyup', handleKey);
+        document.querySelector('body').addEventListener('keydown', handleKey);
     }
     // restarts the typing test
     function restart() {
@@ -119,49 +119,61 @@
         let colorsText = [];
 
         for(let i=0; i < textSplit.length; i++) {
-            colorsText.push({[textSplit[i]]:'black'});
+            colorsText.push({[textSplit[i]]:''});
         }
 
         characters.set(colorsText)
         correct.set(0)
 
-        document.querySelector('body').addEventListener('keyup', handleKey);
+        document.querySelector('body').addEventListener('keydown', handleKey);
     }
 
 
 </script>
 
-<div>
+<div id='container'>
     {#if done}
-        <p>Done Typing</p>
-        <button on:click={restart}>New Typing Test</button>
+        <div id="end">
+            <p>WoW</p>
+            <button on:click={restart}>Again</button>
+        </div>
     {:else}
-        {#each charsVal as c}
-        <Character char={Object.keys(c)[0]} color={Object.values(c)[0]} ev={handleKey}/>
-        {/each}
+        <div>
+            {#each charsVal as c}
+            <Character char={Object.keys(c)[0]} color={Object.values(c)[0]} ev={handleKey}/>
+            {/each}
+        </div>
     {/if}
 </div>
 
 
 <svelte:body
-  on:keyup={handleKey}
+  on:keydown={handleKey}
 />
 
 <style>
-    div {
+    #container {
         width: 75%;
         margin: auto;
         background-color: gray;
         padding: 50px;
         border-radius: 20px;
         text-align: left;
+        display: flex;
+        flex-direction: columns;;
+        justify-content: center;
     }
 
     p {
         text-align: center;
     }
 
-    button {
+    #end {
+        display: flex;
+        flex-direction: column;
+    }
 
+    button:hover {
+        background-color: #2F2D2E;
     }
 </style>

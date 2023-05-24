@@ -9,7 +9,7 @@
     let body = document.querySelector('body');
 
     onDestroy(() => {
-        body.removeEventListener('keyup', ev)
+        body.removeEventListener('keydown', ev)
     });
 
 

@@ -5,7 +5,7 @@ let textSplit = text.split('');
 let colorsText = [];
 
 for(let i=0; i < textSplit.length; i++) {
-    colorsText.push({[textSplit[i]]:'black'});
+    colorsText.push({[textSplit[i]]:''});
 }
 
 export const characters = writable(colorsText);
